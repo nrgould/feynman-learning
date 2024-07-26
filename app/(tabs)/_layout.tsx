@@ -2,8 +2,8 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { DarkTheme, DefaultTheme } from '@/constants/theme';
 
 export default function TabLayout() {
 	const colorScheme = useColorScheme();
@@ -11,7 +11,10 @@ export default function TabLayout() {
 	return (
 		<Tabs
 			screenOptions={{
-				tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+				tabBarActiveTintColor:
+					colorScheme === 'dark'
+						? DarkTheme.colors.background
+						: DefaultTheme.colors.background,
 				headerShown: false,
 			}}>
 			<Tabs.Screen
@@ -33,6 +36,18 @@ export default function TabLayout() {
 					tabBarIcon: ({ color, focused }) => (
 						<TabBarIcon
 							name={focused ? 'code-slash' : 'code-slash-outline'}
+							color={color}
+						/>
+					),
+				}}
+			/>
+			<Tabs.Screen
+				name='nonrepeat'
+				options={{
+					title: 'NonRepeat',
+					tabBarIcon: ({ color, focused }) => (
+						<TabBarIcon
+							name={focused ? 'menu' : 'menu-outline'}
 							color={color}
 						/>
 					),

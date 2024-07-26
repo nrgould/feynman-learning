@@ -29,8 +29,8 @@ export default function HomeScreen() {
 			}>
 			<Box
 				padding='m'
+				borderRadius={12}
 				width='100%'
-				flex={1}
 				justifyContent='center'
 				alignItems='center'>
 				<Box paddingBottom='m'>
