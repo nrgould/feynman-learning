@@ -1,12 +1,12 @@
-// theme.js
-const theme = {
+// themes.js
+export const DefaultTheme = {
 	colors: {
-		background: '#FFFFFF', // White background
-		primary: '#1A73E8', // Blue primary color (similar to Google's blue)
-		secondary: '#202124', // Dark gray secondary color (similar to Google's dark text color)
-		textPrimary: '#202124', // Primary text color
-		textSecondary: '#5F6368', // Secondary text color (lighter gray)
-		border: '#E0E0E0', // Light gray border color
+		background: '#FFFFFF',
+		primary: '#1A73E8',
+		secondary: '#202124',
+		textPrimary: '#202124',
+		textSecondary: '#5F6368',
+		border: '#E0E0E0',
 	},
 	spacing: {
 		xs: 4,
@@ -42,5 +42,12 @@ const theme = {
 	},
 };
 
-export type Theme = typeof theme;
-export default theme;
+export const DarkTheme = {
+	...DefaultTheme,
+	colors: {
+		...DefaultTheme.colors,
+		background: '#202124',
+		textPrimary: '#FFFFFF',
+		textSecondary: '#E0E0E0',
+	},
+};
