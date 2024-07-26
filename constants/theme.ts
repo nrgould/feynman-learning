@@ -1,5 +1,7 @@
-// themes.js
-export const DefaultTheme = {
+// themes.ts
+import { createTheme } from '@shopify/restyle';
+
+const theme = createTheme({
 	colors: {
 		background: '#FFFFFF',
 		primary: '#1A73E8',
@@ -7,6 +9,9 @@ export const DefaultTheme = {
 		textPrimary: '#202124',
 		textSecondary: '#5F6368',
 		border: '#E0E0E0',
+		success: '#34A853',
+		danger: '#EA4335',
+		warning: '#FBBC05',
 	},
 	spacing: {
 		xs: 4,
@@ -40,14 +45,18 @@ export const DefaultTheme = {
 		tablet: 768,
 		largeTablet: 1024,
 	},
-};
+});
+
+export const DefaultTheme = theme;
 
 export const DarkTheme = {
-	...DefaultTheme,
+	...theme,
 	colors: {
-		...DefaultTheme.colors,
+		...theme.colors,
 		background: '#202124',
 		textPrimary: '#FFFFFF',
 		textSecondary: '#E0E0E0',
 	},
 };
+
+export type Theme = typeof theme;
