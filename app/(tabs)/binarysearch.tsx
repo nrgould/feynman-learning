@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Box from '@/components/atoms/Box';
 import { ThemedText } from '@/components/ThemedText';
 import { StyleSheet, TextInput } from 'react-native';
@@ -21,6 +21,7 @@ export default function BinarySearch() {
 					style={styles.input}
 					placeholder='Type here...'
 					keyboardType='numeric'
+					returnKeyType='done'
 					value={target.toString()}
 					onChangeText={(text) => setTarget(+text)}
 				/>
