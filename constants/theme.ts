@@ -19,6 +19,7 @@ const theme = createTheme({
 		m: 16,
 		l: 24,
 		xl: 32,
+		xxl: 64,
 	},
 	textVariants: {
 		header: {
