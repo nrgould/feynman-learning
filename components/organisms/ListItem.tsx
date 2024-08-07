@@ -11,9 +11,8 @@ interface Props {
 
 export default function ListItem({ user, index }: Props) {
 	const [height, setHeight] = useState(100);
-	console.log(user.name);
 	useEffect(() => {
-		setHeight(150);
+		setHeight(100);
 	}, [index]);
 	return (
 		<Pressable
