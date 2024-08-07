@@ -1,9 +1,12 @@
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, TextInput } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import Box from '../../components/atoms/Box';
 import { useState } from 'react';
 import Button from '@/components/atoms/Button';
+import { useCountStore } from '@/store/countReducer';
+import { useSharedValue } from 'react-native-reanimated';
+import Slider from '@react-native-community/slider';
 
 export default function HomeScreen() {
 	function fizzBuzz(count: number): string {
@@ -18,12 +21,18 @@ export default function HomeScreen() {
 	}
 
 	const [count, setCount] = useState(1);
+	const [incrVal, setIncrVal] = useState(1);
+	const [progress, setProgress] = useState<number>(1);
+	const count2 = useCountStore((state) => state.count);
+	const increment = useCountStore((state) => state.increment);
+	const decrement = useCountStore((state) => state.decrement);
+
 	return (
 		<ParallaxScrollView
 			headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
 			headerImage={
 				<Image
-					source={require('@/assets/images/partial-react-logo.png')}
+					source={require('@/assets/images/R6II9151.jpg')}
 					style={styles.reactLogo}
 				/>
 			}>
@@ -49,6 +58,29 @@ export default function HomeScreen() {
 				</Box>
 				<ThemedText type='subtitle'>{count}</ThemedText>
 				<ThemedText type='default'>{fizzBuzz(count)}</ThemedText>
+				<Box margin='xl'>
+					<ThemedText type='title'>count: {count2}</ThemedText>
+					<ThemedText type='subtitle'>
+						quantity: {progress}
+					</ThemedText>
+					<Slider
+						minimumValue={1}
+						maximumValue={10}
+						onValueChange={(val) => setProgress(val)}
+						step={1}
+						value={progress}
+					/>
+					<Box flexDirection='row'>
+						<Button
+							title='incr'
+							onPress={() => increment(progress)}
+						/>
+						<Button
+							title='decr'
+							onPress={() => decrement(progress)}
+						/>
+					</Box>
+				</Box>
 			</Box>
 		</ParallaxScrollView>
 	);
@@ -65,8 +97,8 @@ const styles = StyleSheet.create({
 		marginBottom: 8,
 	},
 	reactLogo: {
-		height: 178,
-		width: 290,
+		height: '100%',
+		width: '100%',
 		bottom: 0,
 		left: 0,
 		position: 'absolute',
