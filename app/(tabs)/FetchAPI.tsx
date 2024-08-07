@@ -40,16 +40,20 @@ export default function FetchAPI() {
 
 	const flashListRef = useRef<any>();
 
+	const apiClient = axios.create({
+		baseURL: `https://jsonplaceholder.typicode.com`,
+		timeout: 1000,
+	});
+
 	const renderItem = ({ item, index }: ListRenderItemInfo<User>) => {
 		return <ListItem user={item} index={index.toString()} />;
 	};
 
 	useEffect(() => {
-		axios
-			.get(`https://jsonplaceholder.typicode.com/users`)
+		apiClient
+			.get(`/users`)
 			.then((res) => {
 				setUsers(res.data);
-				console.log(res.data);
 			})
 			.catch((err) => {
 				setError(err);
