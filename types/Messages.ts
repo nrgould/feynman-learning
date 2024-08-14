@@ -1,6 +1,6 @@
 export type Message = {
 	id: string;
 	text: string;
-	sender: 'user' | 'bot';
+	sender: 'user' | 'assistant';
 	timestamp: string;
 };
