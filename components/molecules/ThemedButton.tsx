@@ -16,7 +16,6 @@ const ThemedButton = ({ title, onPress, variant = 'primary' }: ButtonProps) => {
 				padding='m'
 				borderRadius='m'
 				flexDirection='row'
-				marginVertical='m'
 				backgroundColor={
 					variant === 'primary' ? 'primary' : 'secondary'
 				}

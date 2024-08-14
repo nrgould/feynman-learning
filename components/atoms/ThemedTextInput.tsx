@@ -26,10 +26,11 @@ const ThemedTextInput = ({
 	variant = 'default',
 	...props
 }: CustomTextInputProps) => (
-	<Box marginVertical='m' marginRight='s'>
+	<Box marginRight='s'>
 		{label && (
 			<Box marginBottom='s'>
 				<CustomTextInput
+					label={label}
 					placeholderTextColor='placeholderText'
 					variant={variant}
 					{...props}
