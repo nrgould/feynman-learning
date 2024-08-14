@@ -8,10 +8,17 @@ const theme = createTheme({
 		secondary: '#202124',
 		textPrimary: '#202124',
 		textSecondary: '#5F6368',
+		buttonText: '#ffffff',
 		border: '#E0E0E0',
 		success: '#34A853',
 		danger: '#EA4335',
 		warning: '#FBBC05',
+		textInputBackground: '#f0f0f0',
+		textInputBorder: '#cccccc',
+		textInputText: '#333333',
+		placeholderText: '#888888',
+		errorBackground: '#ffdddd',
+		errorBorder: '#ff3333',
 	},
 	spacing: {
 		xs: 4,
@@ -21,9 +28,14 @@ const theme = createTheme({
 		xl: 32,
 		xxl: 64,
 	},
+	borderRadii: {
+		s: 4,
+		m: 8,
+		l: 16,
+	},
 	textVariants: {
 		header: {
-			fontSize: 24,
+			fontSize: 32,
 			fontWeight: 'bold',
 			color: 'textPrimary',
 		},
@@ -40,6 +52,29 @@ const theme = createTheme({
 			fontSize: 12,
 			color: 'textSecondary',
 		},
+		button: {
+			fontSize: 16,
+			fontWeight: 'bold',
+			color: 'buttonText',
+		},
+	},
+	textInputVariants: {
+		default: {
+			backgroundColor: 'textInputBackground',
+			borderRadius: 'm',
+			padding: 'm',
+			borderColor: 'textInputBorder',
+			borderWidth: 1,
+			color: 'textInputText',
+		},
+		error: {
+			backgroundColor: 'errorBackground',
+			borderRadius: 'm',
+			padding: 'm',
+			borderColor: 'errorBorder',
+			borderWidth: 1,
+			color: 'textInputText',
+		},
 	},
 	breakpoints: {
 		phone: 0,
@@ -54,9 +89,12 @@ export const DarkTheme = {
 	...theme,
 	colors: {
 		...theme.colors,
-		background: '#202124',
+		background: '#131416',
 		textPrimary: '#FFFFFF',
 		textSecondary: '#E0E0E0',
+		textInputBackground: '#202124',
+		textInputBorder: '#333333',
+		textInputText: '#cccccc',
 	},
 };
 
