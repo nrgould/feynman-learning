@@ -11,19 +11,29 @@ export default function TabLayout() {
 	return (
 		<Tabs
 			screenOptions={{
+				tabBarShowLabel: false,
 				tabBarActiveTintColor:
 					colorScheme === 'dark'
-						? DarkTheme.colors.background
-						: DefaultTheme.colors.background,
+						? DarkTheme.colors.primary
+						: DefaultTheme.colors.border,
 				headerShown: false,
-			}}>
+				tabBarStyle: {
+					backgroundColor:
+						colorScheme === 'dark'
+							? DarkTheme.colors.background
+							: DefaultTheme.colors.background,
+				},
+			}}
+		>
 			<Tabs.Screen
 				name='index'
 				options={{
 					title: 'Chat',
 					tabBarIcon: ({ color, focused }) => (
 						<TabBarIcon
-							name={focused ? 'home' : 'home-outline'}
+							name={
+								focused ? 'chatbubbles' : 'chatbubbles-outline'
+							}
 							color={color}
 						/>
 					),

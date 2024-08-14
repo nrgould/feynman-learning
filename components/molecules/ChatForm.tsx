@@ -15,13 +15,14 @@ export default function ChatForm({
 	handleSend,
 }: Readonly<Props>) {
 	return (
-		<Box flexDirection={'row'} width='100%'>
+		<Box flexDirection='row' width='100%' marginVertical='s'>
 			<Box flex={1} marginRight='xs'>
 				<ThemedTextInput
 					label='Error Input'
 					value={prompt}
 					onChangeText={setPrompt}
 					placeholder='ask a question'
+					returnKeyType='done'
 				/>
 			</Box>
 			<Box width='auto'>

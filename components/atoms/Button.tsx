@@ -26,9 +26,10 @@ const Button: React.FC<CustomButtonProps> = ({
 				padding='m'
 				margin='s'
 				backgroundColor={backgroundColor}
-				borderRadius={10}
+				borderRadius='m'
 				alignItems='center'
-				justifyContent='center'>
+				justifyContent='center'
+			>
 				<Text variant='body' color='background'>
 					{title}
 				</Text>
