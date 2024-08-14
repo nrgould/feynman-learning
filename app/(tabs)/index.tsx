@@ -2,30 +2,31 @@ import { Image, StyleSheet, TextInput } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import Box from '../../components/atoms/Box';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from '@/components/atoms/Button';
-import { useCountStore } from '@/store/countReducer';
-import { useSharedValue } from 'react-native-reanimated';
-import Slider from '@react-native-community/slider';
+import OpenAI from 'openai';
 
 export default function HomeScreen() {
-	function fizzBuzz(count: number): string {
-		if (count % 3 === 0 && count % 5 === 0) {
-			return 'FizzBuzz';
-		} else if (count % 3 === 0) {
-			return 'Fizz';
-		} else if (count % 5 === 0) {
-			return 'Buzz';
-		}
-		return count.toString();
-	}
+	const [prompt, setPrompt] = useState<string>('say hello world');
+	const [response, setResponse] = useState<string>('');
 
-	const [count, setCount] = useState(1);
-	const [incrVal, setIncrVal] = useState(1);
-	const [progress, setProgress] = useState<number>(1);
-	const count2 = useCountStore((state) => state.count);
-	const increment = useCountStore((state) => state.increment);
-	const decrement = useCountStore((state) => state.decrement);
+	const openai = new OpenAI({
+		organization: process.env.EXPO_PUBLIC_ORG_KEY,
+		apiKey: process.env.EXPO_PUBLIC_API_KEY,
+	});
+
+	useEffect(() => {}, []);
+
+	const handleSend = () => {
+		openai.chat.completions
+			.create({
+				model: 'gpt-4o-mini',
+				messages: [{ role: 'user', content: prompt }],
+			})
+			.then((res) => {
+				console.log(res);
+			});
+	};
 
 	return (
 		<ParallaxScrollView
@@ -35,52 +36,22 @@ export default function HomeScreen() {
 					source={require('@/assets/images/R6II9151.jpg')}
 					style={styles.reactLogo}
 				/>
-			}>
+			}
+		>
 			<Box
 				padding='m'
 				borderRadius={12}
-				width='100%'
+				flex={1}
 				justifyContent='center'
-				alignItems='center'>
-				<Box paddingBottom='m'>
-					<ThemedText type='title'>FizzBuzz</ThemedText>
-				</Box>
-				<Box
-					paddingBottom='m'
-					flexDirection='row'
-					alignItems='center'
-					justifyContent='space-around'>
-					<Button
-						title='count up'
-						onPress={() => setCount(count + 1)}
-					/>
-					<Button title='reset' onPress={() => setCount(0)} />
-				</Box>
-				<ThemedText type='subtitle'>{count}</ThemedText>
-				<ThemedText type='default'>{fizzBuzz(count)}</ThemedText>
-				<Box margin='xl'>
-					<ThemedText type='title'>count: {count2}</ThemedText>
-					<ThemedText type='subtitle'>
-						quantity: {progress}
-					</ThemedText>
-					<Slider
-						minimumValue={1}
-						maximumValue={10}
-						onValueChange={(val) => setProgress(val)}
-						step={1}
-						value={progress}
-					/>
-					<Box flexDirection='row'>
-						<Button
-							title='incr'
-							onPress={() => increment(progress)}
-						/>
-						<Button
-							title='decr'
-							onPress={() => decrement(progress)}
-						/>
-					</Box>
-				</Box>
+				alignItems='center'
+			>
+				<TextInput
+					value={prompt}
+					onChangeText={setPrompt}
+					placeholder='ask a question'
+				/>
+				<Button title='Send' onPress={handleSend} />
+				<ThemedText type='subtitle'>{response}</ThemedText>
 			</Box>
 		</ParallaxScrollView>
 	);

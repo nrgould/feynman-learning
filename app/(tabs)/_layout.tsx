@@ -20,22 +20,10 @@ export default function TabLayout() {
 			<Tabs.Screen
 				name='index'
 				options={{
-					title: 'Home',
+					title: 'Chat',
 					tabBarIcon: ({ color, focused }) => (
 						<TabBarIcon
 							name={focused ? 'home' : 'home-outline'}
-							color={color}
-						/>
-					),
-				}}
-			/>
-			<Tabs.Screen
-				name='nonrepeat'
-				options={{
-					title: 'NonRepeat',
-					tabBarIcon: ({ color, focused }) => (
-						<TabBarIcon
-							name={focused ? 'menu' : 'menu-outline'}
 							color={color}
 						/>
 					),
