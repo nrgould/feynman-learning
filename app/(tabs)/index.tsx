@@ -1,14 +1,18 @@
 import { Image, StyleSheet, TextInput } from 'react-native';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
+import ParallaxScrollView from '@/components/organisms/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import Box from '../../components/atoms/Box';
 import { useEffect, useState } from 'react';
 import Button from '@/components/atoms/Button';
 import OpenAI from 'openai';
+import ThemedButton from '@/components/molecules/ThemedButton';
+import ThemedTextInput from '@/components/atoms/ThemedTextInput';
+import ChatForm from '@/components/molecules/ChatForm';
 
 export default function HomeScreen() {
 	const [prompt, setPrompt] = useState<string>('say hello world');
-	const [response, setResponse] = useState<string>('');
+	const [response, setResponse] = useState<any>();
+	const [loading, setLoading] = useState<boolean>(false);
 
 	const openai = new OpenAI({
 		organization: process.env.EXPO_PUBLIC_ORG_KEY,
@@ -18,42 +22,49 @@ export default function HomeScreen() {
 	useEffect(() => {}, []);
 
 	const handleSend = () => {
+		setLoading(true);
 		openai.chat.completions
 			.create({
 				model: 'gpt-4o-mini',
 				messages: [{ role: 'user', content: prompt }],
 			})
 			.then((res) => {
-				console.log(res);
+				setLoading(false);
+				setResponse(res.choices);
+				console.log(res.choices[0].message.content);
 			});
 	};
 
 	return (
-		<ParallaxScrollView
-			headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-			headerImage={
-				<Image
-					source={require('@/assets/images/R6II9151.jpg')}
-					style={styles.reactLogo}
-				/>
-			}
-		>
+		<>
 			<Box
-				padding='m'
-				borderRadius={12}
+				backgroundColor='background'
+				paddingTop='xxl'
+				paddingHorizontal='m'
+			>
+				<ThemedText type='header'>Chat</ThemedText>
+			</Box>
+			<Box
+				paddingHorizontal='m'
+				backgroundColor='background'
 				flex={1}
-				justifyContent='center'
+				width='100%'
+				justifyContent='flex-end'
 				alignItems='center'
 			>
-				<TextInput
-					value={prompt}
-					onChangeText={setPrompt}
-					placeholder='ask a question'
+				<ThemedText type='subheader'>
+					{response ? response[0].message.content : null}
+				</ThemedText>
+				<ThemedText type='subheader'>
+					{loading ? 'Loading...' : null}
+				</ThemedText>
+				<ChatForm
+					prompt={prompt}
+					setPrompt={setPrompt}
+					handleSend={handleSend}
 				/>
-				<Button title='Send' onPress={handleSend} />
-				<ThemedText type='subtitle'>{response}</ThemedText>
 			</Box>
-		</ParallaxScrollView>
+		</>
 	);
 }
 
