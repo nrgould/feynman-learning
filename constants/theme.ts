@@ -4,8 +4,8 @@ import { createTheme } from '@shopify/restyle';
 const theme = createTheme({
 	colors: {
 		background: '#FFFFFF',
-		primary: '#1A73E8',
-		secondary: '#202124',
+		primary: '#008080',
+		secondary: '##22BF90',
 		textPrimary: '#202124',
 		textSecondary: '#5F6368',
 		buttonText: '#ffffff',
@@ -19,6 +19,8 @@ const theme = createTheme({
 		placeholderText: '#888888',
 		errorBackground: '#ffdddd',
 		errorBorder: '#ff3333',
+		messageBgUser: '#22BF90',
+		messageBgBot: '#D6D6D6',
 	},
 	spacing: {
 		xs: 4,
@@ -29,18 +31,18 @@ const theme = createTheme({
 		xxl: 64,
 	},
 	borderRadii: {
-		s: 4,
-		m: 8,
+		s: 6,
+		m: 10,
 		l: 16,
 	},
 	textVariants: {
 		header: {
-			fontSize: 32,
-			fontWeight: 'bold',
+			fontSize: 40,
+			fontWeight: '900',
 			color: 'textPrimary',
 		},
 		subheader: {
-			fontSize: 20,
+			fontSize: 24,
 			fontWeight: '600',
 			color: 'textSecondary',
 		},
@@ -95,6 +97,8 @@ export const DarkTheme = {
 		textInputBackground: '#202124',
 		textInputBorder: '#333333',
 		textInputText: '#cccccc',
+		messageBgUser: '#008080',
+		messageBgBot: '#202124',
 	},
 };
 
