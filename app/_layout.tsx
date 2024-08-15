@@ -6,12 +6,14 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { DarkTheme, DefaultTheme } from '../constants/theme';
+import useThemeStore from '@/store/themeStore';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-	const colorScheme = useColorScheme();
+	// const colorScheme = useColorScheme();
+	const { theme } = useThemeStore();
 	const [loaded] = useFonts({
 		JosefinSans: require('../assets/fonts/JosefinSans-Regular.ttf'),
 	});
@@ -27,9 +29,7 @@ export default function RootLayout() {
 	}
 
 	return (
-		<ThemeProvider
-			theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-		>
+		<ThemeProvider theme={theme === 'dark' ? DarkTheme : DefaultTheme}>
 			<Stack>
 				<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
 				<Stack.Screen name='+not-found' />
