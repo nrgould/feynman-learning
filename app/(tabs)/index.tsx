@@ -8,66 +8,31 @@ import ChatMessage from '@/components/molecules/ChatMessage';
 import { FlashList } from '@shopify/flash-list';
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import moment from 'moment';
+import { useMessageStore } from '@/store/countReducer';
 
 export default function HomeScreen() {
+	const messages = useMessageStore((state) => state.messages);
+	const addMessage = useMessageStore((state) => state.addMessage);
+	const [message, setMessage] = useState<string>('');
+
 	const [prompt, setPrompt] = useState<string>('');
-	const [messages, setMessages] = useState<Message[]>([
-		{
-			id: '1',
-			text: 'Hello!',
-			sender: 'user',
-			timestamp: '2024-08-14T12:00:00Z',
-		},
-		{
-			id: '2',
-			text: 'Hi there! How can I help you today?',
-			sender: 'user',
-			timestamp: '2024-08-14T12:00:00Z',
-		},
-		{
-			id: '3',
-			text: 'I need assistance with my order.',
-			sender: 'assistant',
-			timestamp: '2024-08-14T12:00:45Z',
-		},
-	]);
 	const [response, setResponse] = useState<any>();
 	const [loading, setLoading] = useState<boolean>(false);
-	const [message, setMessage] = useState<string>('');
 
 	const openai = new OpenAI({
 		organization: process.env.EXPO_PUBLIC_ORG_KEY,
 		apiKey: process.env.EXPO_PUBLIC_API_KEY,
 	});
 
-	useEffect(() => {
-		console.log(messages);
-	}, []);
-
-	const handleChatSpacing = (newMessage: Message): boolean => {
-		const prevMessage = messages[messages.length - 1];
-
-		const prevTime = moment(prevMessage.timestamp);
-		const newTime = moment(newMessage.timestamp);
-
-		return (
-			newTime.diff(prevTime, 'seconds') < 60 ||
-			prevMessage.sender !== newMessage.sender
-		);
-	};
+	console.log(messages);
 
 	const handleSend = () => {
-		// setLoading(true);
-
-		setMessages((prev) => [
-			...prev,
-			{
-				id: Math.random().toString(),
-				text: message,
-				sender: 'user',
-				timestamp: new Date().getTime().toString(),
-			},
-		]);
+		addMessage({
+			id: Math.random().toString(),
+			text: message,
+			sender: 'user',
+			timestamp: moment().toISOString(),
+		});
 		setMessage('');
 
 		// openai.chat.completions
@@ -100,7 +65,6 @@ export default function HomeScreen() {
 						)}
 						keyExtractor={(item) => item.id}
 						estimatedItemSize={100}
-						inverted
 					/>
 				</Box>
 				<Box paddingHorizontal='m'>

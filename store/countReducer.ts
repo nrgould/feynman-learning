@@ -1,34 +1,49 @@
+import { Message } from '@/types/Messages';
 import { create } from 'zustand';
 
 type Action = {
 	type: keyof Actions;
-	qty: number;
+	msg: Message;
 };
 
 type State = {
-	count: number;
+	messages: Message[];
 };
 
 type Actions = {
-	increment: (qty: number) => void;
-	decrement: (qty: number) => void;
+	addMessage: (msg: Message) => void;
 };
 
-const countReducer = (state: State, action: Action) => {
+const msgReducer = (state: State, action: Action) => {
 	switch (action.type) {
-		case 'increment':
-			return { count: state.count + action.qty };
-		case 'decrement':
-			return { count: state.count - action.qty };
+		case 'addMessage':
+			return { messages: [...state.messages, action.msg] };
 		default:
 			return state;
 	}
 };
 
-export const useCountStore = create<State & Actions>((set) => ({
-	count: 0,
-	increment: (qty: number) =>
-		set((state) => countReducer(state, { type: 'increment', qty })),
-	decrement: (qty: number) =>
-		set((state) => countReducer(state, { type: 'decrement', qty })),
+export const useMessageStore = create<State & Actions>((set) => ({
+	messages: [
+		{
+			id: '1',
+			text: 'Hello!',
+			sender: 'user',
+			timestamp: '2024-08-14T12:00:00Z',
+		},
+		{
+			id: '2',
+			text: 'Hi there! How can I help you today?',
+			sender: 'user',
+			timestamp: '2024-08-14T12:00:00Z',
+		},
+		{
+			id: '3',
+			text: 'I need assistance with my order.',
+			sender: 'assistant',
+			timestamp: '2024-08-14T12:00:45Z',
+		},
+	],
+	addMessage: (msg: Message) =>
+		set((state) => msgReducer(state, { type: 'addMessage', msg })),
 }));
