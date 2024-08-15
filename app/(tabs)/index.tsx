@@ -24,8 +24,6 @@ export default function HomeScreen() {
 		apiKey: process.env.EXPO_PUBLIC_API_KEY,
 	});
 
-	console.log(messages);
-
 	const handleSend = () => {
 		addMessage({
 			id: Math.random().toString(),

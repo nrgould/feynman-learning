@@ -12,8 +12,6 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
 	const isUser = message.sender === 'user';
 	const isSpaced = useChatSpacing(message);
 
-	console.log(isSpaced);
-
 	return (
 		<TouchableHighlight>
 			<Box
