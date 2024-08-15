@@ -2,6 +2,7 @@ import React from 'react';
 import Box from '@/components/atoms/Box';
 import Text from '@/components/atoms/Text';
 import Card from '@/components/molecules/Card';
+import { ScrollView } from 'react-native';
 
 export default function Home() {
 	return (
@@ -12,7 +13,11 @@ export default function Home() {
 			paddingHorizontal='m'
 		>
 			<Text variant='header'>Home</Text>
-			<Card />
+			<ScrollView>
+				<Card />
+				<Card />
+				<Card />
+			</ScrollView>
 		</Box>
 	);
 }
