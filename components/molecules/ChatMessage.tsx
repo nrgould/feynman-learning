@@ -19,6 +19,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
 				borderRadius='l'
 				style={isSpaced ? { marginTop: 12 } : { marginTop: 4 }}
 				padding='s'
+				paddingHorizontal='m'
 				alignSelf={isUser ? 'flex-end' : 'flex-start'}
 				backgroundColor={isUser ? 'messageBgUser' : 'messageBgBot'}
 			>
