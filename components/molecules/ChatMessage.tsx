@@ -2,7 +2,7 @@ import { Message } from '@/types/Messages';
 import Box from '../atoms/Box';
 import { ThemedText } from '../atoms/ThemedText';
 import { useChatSpacing } from '@/hooks/useChatSpacing';
-import { StyleSheet, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Animated, {
 	useAnimatedStyle,
 	useSharedValue,
