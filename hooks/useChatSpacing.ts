@@ -12,10 +12,10 @@ const MESSAGE_SPACING_TIME = 60;
  * 1. The new message was sent after 60 seconds of the previous message, or
  * 2. The sender of the new message is different from the sender of the previous message.
  *
- * Additionally, it ensures that the new message is not the same as the previous one.
+ * Additionally, it ensures that the new message is not the same as the previous one. (to avoid adding space to the last message)
  *
  * @param {Message} newMessage - The message currently being processed.
- * @returns {boolean} - Returns `true` if the conditions for close spacing are met; otherwise, `false`.
+ * @returns {boolean} - Returns `true` if the conditions for wide spacing are met; otherwise, `false`.
  */
 export const useChatSpacing = (newMessage: Message) => {
 	const messages = useMessageStore((state) => state.messages);
@@ -29,12 +29,8 @@ export const useChatSpacing = (newMessage: Message) => {
 		prevMessage = messages[currentMessageIndex - 1];
 	}
 
-	console.log(prevMessage.text, newMessage.text);
-
 	const prevTime = moment(prevMessage.timestamp);
 	const newTime = moment(newMessage.timestamp);
-
-	console.log(newTime.diff(prevTime, 'seconds'));
 
 	return (
 		(newTime.diff(prevTime, 'seconds') > MESSAGE_SPACING_TIME ||
