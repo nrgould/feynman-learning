@@ -1,23 +1,22 @@
 import { ThemedText } from '@/components/atoms/ThemedText';
 import Box from '../../components/atoms/Box';
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import OpenAI from 'openai';
 import ChatForm from '@/components/molecules/ChatForm';
-import { Message } from '@/types/Messages';
 import ChatMessage from '@/components/molecules/ChatMessage';
 import { FlashList } from '@shopify/flash-list';
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import moment from 'moment';
 import { useMessageStore } from '@/store/countReducer';
+import * as Haptics from 'expo-haptics';
 
 export default function HomeScreen() {
 	const messages = useMessageStore((state) => state.messages);
 	const addMessage = useMessageStore((state) => state.addMessage);
 	const [message, setMessage] = useState<string>('');
-
-	const [prompt, setPrompt] = useState<string>('');
-	const [response, setResponse] = useState<any>();
 	const [loading, setLoading] = useState<boolean>(false);
+
+	const flashListRef = useRef<FlashList<any>>(null);
 
 	const openai = new OpenAI({
 		organization: process.env.EXPO_PUBLIC_ORG_KEY,
@@ -25,24 +24,41 @@ export default function HomeScreen() {
 	});
 
 	const handleSend = () => {
-		addMessage({
-			id: Math.random().toString(),
-			text: message,
-			sender: 'user',
-			timestamp: moment().toISOString(),
-		});
-		setMessage('');
+		if (message) {
+			//prevents users from sending an empty message
+			Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
 
-		// openai.chat.completions
-		// 	.create({
-		// 		model: 'gpt-4o-mini',
-		// 		messages: [{ role: 'user', content: prompt }],
-		// 	})
-		// 	.then((res) => {
-		// 		setLoading(false);
-		// 		setResponse(res.choices);
-		// 		console.log(res.choices[0].message.content);
-		// 	});
+			//add message to flatlist
+			addMessage({
+				id: Math.random().toString(),
+				text: message,
+				sender: 'user',
+				timestamp: moment().toISOString(),
+			});
+
+			const prompt: string = message;
+			setMessage('');
+
+			//get chatgpt response
+			setLoading(true);
+			openai.chat.completions
+				.create({
+					model: 'gpt-4o-mini',
+					messages: [{ role: 'user', content: prompt }],
+				})
+				.then((res) => {
+					setLoading(false);
+					addMessage({
+						id: res.id,
+						text: res.choices[0].message.content,
+						sender: 'assistant',
+						timestamp: moment().toISOString(),
+					});
+				});
+		} else {
+			//message empty
+			Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+		}
 	};
 
 	return (
@@ -57,20 +73,19 @@ export default function HomeScreen() {
 			>
 				<Box flex={1} paddingHorizontal='m'>
 					<FlashList
+						ref={flashListRef}
 						data={messages}
 						renderItem={({ item }) => (
 							<ChatMessage message={item} />
 						)}
 						keyExtractor={(item) => item.id}
-						estimatedItemSize={100}
+						estimatedItemSize={50}
+						initialScrollIndex={messages.length - 1}
 					/>
 				</Box>
 				<Box paddingHorizontal='m'>
 					{/* <ThemedText type='body' style={{ textAlign: 'left' }}>
 						{response ? response[0].message.content : null}
-					</ThemedText>
-					<ThemedText type='subheader'>
-						{loading ? 'Loading...' : null}
 					</ThemedText> */}
 					<ChatForm
 						prompt={message}

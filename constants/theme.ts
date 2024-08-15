@@ -16,7 +16,7 @@ const theme = createTheme({
 		textInputBackground: '#f0f0f0',
 		textInputBorder: '#cccccc',
 		textInputText: '#333333',
-		placeholderText: '#888888',
+		placeholderText: '#5F6368',
 		errorBackground: '#ffdddd',
 		errorBorder: '#ff3333',
 		messageBgUser: '#22BF90',
