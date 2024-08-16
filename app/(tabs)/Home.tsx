@@ -4,7 +4,7 @@ import Text from '@/components/atoms/Text';
 import Card from '@/components/molecules/Card';
 import { ScrollView } from 'react-native';
 import ThemedButton from '@/components/atoms/ThemedButton';
-import ThemedSquareButton from '@/components/atoms/ThemedSquareButton';
+import SquareButton from '@/components/atoms/SquareButton';
 
 export default function Home() {
 	return (
@@ -16,18 +16,20 @@ export default function Home() {
 		>
 			<Text variant='header'>Home</Text>
 			<ScrollView>
-				<Box flexDirection='row'>
+				<Card />
+				<Box flexDirection='row' marginVertical='m'>
 					<ThemedButton
-						variant='square'
+						variant='primary'
 						title='button'
 						onPress={() => null}
 					/>
-					<ThemedSquareButton icon='link' />
-					<ThemedSquareButton icon='add' />
+					<Box marginHorizontal='m'>
+						<SquareButton icon='link' />
+					</Box>
+					<Box>
+						<SquareButton icon='add' />
+					</Box>
 				</Box>
-				<Card />
-				<Card />
-				<Card />
 			</ScrollView>
 		</Box>
 	);

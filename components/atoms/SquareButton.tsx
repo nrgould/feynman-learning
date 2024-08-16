@@ -12,7 +12,7 @@ type ButtonProps = {
 	onPress?: () => void;
 };
 
-const ThemedSquareButton = ({ icon, onPress, ...rest }: ButtonProps) => {
+const SquareButton = ({ icon, onPress, ...rest }: ButtonProps) => {
 	const { colors } = useTheme<Theme>();
 	const { size, iconSize } = useButtonHeight();
 
@@ -40,4 +40,4 @@ const ThemedSquareButton = ({ icon, onPress, ...rest }: ButtonProps) => {
 	);
 };
 
-export default ThemedSquareButton;
+export default SquareButton;
