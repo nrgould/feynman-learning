@@ -10,18 +10,9 @@ interface CardProps {
 
 export default function Card() {
 	const [open, setOpen] = useState<boolean>(false);
-	const height = useSharedValue(100);
+	const height = useSharedValue(200);
 
 	const viewRef = useRef(null);
-
-	useLayoutEffect(() => {
-		if (viewRef.current) {
-			viewRef.current.measure((x, y, width, height, pageX, pageY) => {
-				console.log(height);
-				height.value = height;
-			});
-		}
-	}, []);
 
 	const handlePress = () => {
 		if (!open) {

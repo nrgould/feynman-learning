@@ -4,7 +4,6 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
-import { useColorScheme } from '@/hooks/useColorScheme';
 import { DarkTheme, DefaultTheme } from '../constants/theme';
 import useThemeStore from '@/store/themeStore';
 
@@ -12,7 +11,6 @@ import useThemeStore from '@/store/themeStore';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-	// const colorScheme = useColorScheme();
 	const { theme } = useThemeStore();
 	const [loaded] = useFonts({
 		JosefinSans: require('../assets/fonts/JosefinSans-Regular.ttf'),

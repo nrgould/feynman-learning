@@ -1,6 +1,6 @@
 import { ThemedText } from '@/components/atoms/ThemedText';
 import Box from '../../components/atoms/Box';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import OpenAI from 'openai';
 import ChatForm from '@/components/molecules/ChatForm';
 import ChatMessage from '@/components/molecules/ChatMessage';
@@ -17,6 +17,14 @@ export default function HomeScreen() {
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const flashListRef = useRef<FlashList<any>>(null);
+
+	useEffect(() => {
+		if (flashListRef.current && messages.length > 0) {
+			flashListRef.current.scrollToEnd({
+				animated: true,
+			});
+		}
+	}, [messages.length]);
 
 	const openai = new OpenAI({
 		organization: process.env.EXPO_PUBLIC_ORG_KEY,
@@ -80,19 +88,18 @@ export default function HomeScreen() {
 						)}
 						keyExtractor={(item) => item.id}
 						estimatedItemSize={50}
-						initialScrollIndex={messages.length - 1}
+						// initialScrollIndex={messages.length - 1}
+						snapToInterval={64}
+						snapToAlignment='start'
+						decelerationRate='fast'
 					/>
-				</Box>
-				<Box paddingHorizontal='m'>
-					{/* <ThemedText type='body' style={{ textAlign: 'left' }}>
-						{response ? response[0].message.content : null}
-					</ThemedText> */}
 					<ChatForm
 						prompt={message}
 						setPrompt={setMessage}
 						handleSend={handleSend}
 					/>
 				</Box>
+				{/* <Box paddingHorizontal='m'></Box> */}
 			</KeyboardAvoidingView>
 		</Box>
 	);
