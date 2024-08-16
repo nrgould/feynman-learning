@@ -4,21 +4,28 @@ import { createTheme } from '@shopify/restyle';
 const theme = createTheme({
 	colors: {
 		background: '#FFFFFF',
-		primary: '#008080',
-		secondary: '##22BF90',
+		primary: '#275DAD',
+		secondary: '#22BF90',
+
 		textPrimary: '#202124',
 		textSecondary: '#5F6368',
 		buttonText: '#ffffff',
+		buttonTextSecondary: '#5F6368',
+		buttonSecondary: '#D9D9D9',
+
 		border: '#E0E0E0',
 		success: '#34A853',
 		danger: '#EA4335',
 		warning: '#FBBC05',
+
 		textInputBackground: '#f0f0f0',
 		textInputBorder: '#cccccc',
 		textInputText: '#333333',
 		placeholderText: '#5F6368',
+
 		errorBackground: '#ffdddd',
 		errorBorder: '#ff3333',
+		
 		messageBgUser: '#22BF90',
 		messageBgBot: '#D6D6D6',
 	},
@@ -31,9 +38,10 @@ const theme = createTheme({
 		xxl: 64,
 	},
 	borderRadii: {
-		s: 6,
-		m: 10,
-		l: 16,
+		s: 4,
+		m: 8,
+		l: 12,
+		xl: 16,
 	},
 	textVariants: {
 		header: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '../atoms/Box';
 import ThemedTextInput from '../atoms/ThemedTextInput';
-import ThemedButton from './ThemedButton';
+import ThemedButton from '../atoms/ThemedButton';
 
 interface Props {
 	prompt: string;
@@ -15,7 +15,7 @@ export default function ChatForm({
 	handleSend,
 }: Readonly<Props>) {
 	return (
-		<Box flexDirection='row' width='100%' marginVertical='s'>
+		<Box flexDirection='row' marginVertical='s'>
 			<Box flex={1} marginRight='xs'>
 				<ThemedTextInput
 					label='Error Input'
@@ -26,7 +26,11 @@ export default function ChatForm({
 				/>
 			</Box>
 			<Box width='auto'>
-				<ThemedButton title='Send' onPress={handleSend} />
+				<ThemedButton
+					title='Send'
+					variant='primary'
+					onPress={handleSend}
+				/>
 			</Box>
 		</Box>
 	);
