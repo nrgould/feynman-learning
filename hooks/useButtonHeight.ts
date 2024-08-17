@@ -1,7 +1,7 @@
 import { Dimensions } from 'react-native';
 
-const BUTTON_HEIGHT_RATIO = 0.05;
-const ICON_HEIGHT_RATIO = 0.5;
+export const BUTTON_HEIGHT_RATIO = 0.05;
+export const ICON_HEIGHT_RATIO = 0.5;
 
 const useButtonHeight = () => {
 	const screenHeight = Dimensions.get('window').height;
