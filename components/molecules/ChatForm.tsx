@@ -44,7 +44,6 @@ export default function ChatForm({
 			</Box>
 			<Box width='auto'>
 				<SquareButton
-					// title='Send'
 					disabled={isSubmitting || !dirty || !isValid}
 					icon='arrow-up'
 					variant='primary'
