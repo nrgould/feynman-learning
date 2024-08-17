@@ -1,35 +1,54 @@
 import React from 'react';
 import Box from '../atoms/Box';
 import ThemedTextInput from '../atoms/ThemedTextInput';
-import ThemedButton from '../atoms/ThemedButton';
+import SquareButton from '../atoms/SquareButton';
+import { FormikFormProps } from 'formik';
 
-interface Props {
-	prompt: string;
-	setPrompt: React.Dispatch<React.SetStateAction<string>>;
-	handleSend: () => void;
+interface Props extends FormikFormProps {
+	handleChange: any;
+	isValid: boolean;
+	values: any;
+	dirty: boolean;
+	handleSubmit: any;
+	touched: any;
+	isSubmitting: boolean;
+	errors: any;
+	setFieldTouched: any;
+	placeholder: string;
 }
 
 export default function ChatForm({
-	prompt,
-	setPrompt,
-	handleSend,
+	placeholder,
+	handleChange,
+	setFieldTouched,
+	isValid,
+	values,
+	handleSubmit,
+	touched,
+	errors,
+	dirty,
+	isSubmitting,
 }: Readonly<Props>) {
 	return (
 		<Box flexDirection='row' marginVertical='s'>
 			<Box flex={1} marginRight='xs'>
 				<ThemedTextInput
-					label='Error Input'
-					value={prompt}
-					onChangeText={setPrompt}
-					placeholder='ask a question'
+					label='text'
+					value={values.text}
+					onChangeText={handleChange('text')}
+					onBlur={() => setFieldTouched('text')}
+					placeholder={placeholder}
 					returnKeyType='done'
+					error={errors.text && touched.text ? errors.text : null}
 				/>
 			</Box>
 			<Box width='auto'>
-				<ThemedButton
-					title='Send'
+				<SquareButton
+					// title='Send'
+					disabled={isSubmitting || !dirty || !isValid}
+					icon='arrow-up'
 					variant='primary'
-					onPress={handleSend}
+					onPress={handleSubmit}
 				/>
 			</Box>
 		</Box>

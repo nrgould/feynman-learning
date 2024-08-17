@@ -11,10 +11,12 @@ import {
 import { Theme } from '@/constants/theme';
 import Box from './Box';
 import useButtonHeight from '@/hooks/useButtonHeight';
+import { backgroundColorNames } from '../../node_modules/npm/node_modules/chalk/source/vendor/ansi-styles/index';
 
 type CustomTextInputProps = RNTextInputProps &
 	VariantProps<Theme, 'textInputVariants'> & {
 		label?: string;
+		error?: any;
 	};
 
 const CustomTextInput = createRestyleComponent<CustomTextInputProps, Theme>(
@@ -25,6 +27,7 @@ const CustomTextInput = createRestyleComponent<CustomTextInputProps, Theme>(
 const ThemedTextInput = ({
 	label,
 	variant = 'default',
+	error,
 	...props
 }: CustomTextInputProps) => {
 	const { size } = useButtonHeight();
@@ -37,6 +40,7 @@ const ThemedTextInput = ({
 						style={{ height: size }}
 						placeholderTextColor='placeholderText'
 						variant={variant}
+						error={error}
 						{...props}
 					/>
 				</Box>
