@@ -45,7 +45,7 @@ export default function Card() {
 				ref={viewRef}
 				backgroundColor='textInputBackground'
 				borderColor='textInputBorder'
-				borderRadius='l'
+				borderRadius='xxl'
 				borderWidth={1}
 				marginVertical='s'
 				overflow='hidden'
