@@ -47,6 +47,7 @@ export const theme = createTheme({
 		m: 8,
 		l: 12,
 		xl: 16,
+		xxl: 24,
 	},
 	textVariants: {
 		header: {
