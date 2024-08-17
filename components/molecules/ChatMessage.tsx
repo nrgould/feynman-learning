@@ -1,8 +1,6 @@
 import { Message } from '@/types/Messages';
 import Box from '../atoms/Box';
-import { ThemedText } from '../atoms/ThemedText';
 import { useChatSpacing } from '@/hooks/useChatSpacing';
-import { StyleSheet } from 'react-native';
 import Animated, {
 	useAnimatedStyle,
 	useSharedValue,
@@ -21,12 +19,10 @@ const CHAT_SPACING_GROUPED = 2;
 const CHAT_SPACING_LAST_MESSAGE = 32;
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
-	const isUser = message.sender === 'user';
 	const messages = useMessageStore((state) => state.messages);
+	const isUser = message.sender === 'user';
 	const isSpaced = useChatSpacing(message);
 	const lastMessage: boolean = messages[messages.length - 1] === message;
-
-	console.log(message.text, 'last msg', lastMessage);
 
 	const opacity = useSharedValue(0);
 	const translateY = useSharedValue(80);
@@ -38,7 +34,6 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
 		};
 	});
 
-	// Animate the item when it's first rendered
 	opacity.value = withDelay(
 		5,
 		withSpring(1, { damping: 20, stiffness: 180 })
@@ -61,6 +56,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
 			<Box
 				maxWidth='80%'
 				borderRadius='xl'
+				borderBottomRightRadius={isSpaced && isUser ? 's' : 'xl'}
 				padding='s'
 				paddingHorizontal='m'
 				alignSelf={isUser ? 'flex-end' : 'flex-start'}
@@ -76,16 +72,5 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
 		</Animated.View>
 	);
 };
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		paddingTop: 50,
-	},
-	itemContainer: {},
-	itemText: {
-		fontSize: 16,
-	},
-});
 
 export default ChatMessage;
