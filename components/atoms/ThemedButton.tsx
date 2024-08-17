@@ -1,7 +1,8 @@
 import React from 'react';
-import { Dimensions, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import Box from '../atoms/Box';
 import Text from '../atoms/Text';
+import useButtonHeight from '@/hooks/useButtonHeight';
 
 type ButtonProps = {
 	title: string;
@@ -10,8 +11,7 @@ type ButtonProps = {
 };
 
 const ThemedButton = ({ title, onPress, variant = 'primary' }: ButtonProps) => {
-	const screenHeight = Dimensions.get('window').height;
-	const size = screenHeight * 0.05;
+	const { size } = useButtonHeight();
 
 	return (
 		<TouchableOpacity onPress={onPress} style={{ flex: 1 }}>
@@ -23,6 +23,7 @@ const ThemedButton = ({ title, onPress, variant = 'primary' }: ButtonProps) => {
 				backgroundColor={
 					variant === 'primary' ? 'primary' : 'buttonSecondary'
 				}
+				testID='button-box'
 				borderColor={'border'}
 				alignItems='center'
 				justifyContent='center'
