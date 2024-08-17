@@ -1,22 +1,24 @@
 // themes.ts
 import { createTheme } from '@shopify/restyle';
 
-const theme = createTheme({
+export const theme = createTheme({
 	colors: {
-		background: '#FFFFFF',
+		background: '#F5F5F5',
 		primary: '#275DAD',
-		secondary: '#22BF90',
+		secondary: '#6998DD',
 
 		textPrimary: '#202124',
 		textSecondary: '#5F6368',
+
 		buttonText: '#ffffff',
 		buttonTextSecondary: '#5F6368',
 		buttonSecondary: '#D9D9D9',
 
 		border: '#E0E0E0',
-		success: '#34A853',
-		danger: '#EA4335',
-		warning: '#FBBC05',
+
+		success: '#37BC64',
+		danger: '#DE5050',
+		warning: '#F9AE3F',
 
 		textInputBackground: '#f0f0f0',
 		textInputBorder: '#cccccc',
@@ -25,11 +27,14 @@ const theme = createTheme({
 
 		errorBackground: '#ffdddd',
 		errorBorder: '#ff3333',
-		
+
+		messageUser: '#ffffff',
+		messageBot: '#202124',
 		messageBgUser: '#22BF90',
-		messageBgBot: '#D6D6D6',
+		messageBgBot: '#D9D9D9',
 	},
 	spacing: {
+		xxs: 2,
 		xs: 4,
 		s: 8,
 		m: 16,
@@ -105,8 +110,6 @@ export const DarkTheme = {
 		textInputBackground: '#202124',
 		textInputBorder: '#333333',
 		textInputText: '#cccccc',
-		messageBgUser: '#008080',
-		messageBgBot: '#202124',
 	},
 };
 
