@@ -10,10 +10,15 @@ import Animated, {
 	withSpring,
 } from 'react-native-reanimated';
 import { useMessageStore } from '@/store/countReducer';
+import Text from '../atoms/Text';
 
 type ChatMessageProps = {
 	message: Message;
 };
+
+const CHAT_SPACING_SPACED = 12;
+const CHAT_SPACING_GROUPED = 2;
+const CHAT_SPACING_LAST_MESSAGE = 32;
 
 const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
 	const isUser = message.sender === 'user';
@@ -43,9 +48,13 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
 		withSpring(0, { damping: 20, stiffness: 180 })
 	);
 
-	const spacedStyle = isSpaced ? { marginTop: 12 } : { marginTop: 4 };
+	const spacedStyle = isSpaced
+		? { marginTop: CHAT_SPACING_SPACED }
+		: { marginTop: CHAT_SPACING_GROUPED };
 
-	const lastMessageStyle = lastMessage ? { marginBottom: 32 } : null;
+	const lastMessageStyle = lastMessage
+		? { marginBottom: CHAT_SPACING_LAST_MESSAGE }
+		: null;
 
 	return (
 		<Animated.View style={[animatedStyle, spacedStyle, lastMessageStyle]}>
@@ -55,9 +64,14 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
 				padding='s'
 				paddingHorizontal='m'
 				alignSelf={isUser ? 'flex-end' : 'flex-start'}
-				backgroundColor={isUser ? 'primary' : 'messageBgBot'}
+				backgroundColor={isUser ? 'secondary' : 'messageBgBot'}
 			>
-				<ThemedText type='body'>{message.text}</ThemedText>
+				<Text
+					variant='body'
+					color={isUser ? 'messageUser' : 'messageBot'}
+				>
+					{message.text}
+				</Text>
 			</Box>
 		</Animated.View>
 	);
