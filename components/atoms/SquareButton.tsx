@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { Pressable } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Box from './Box';
 import { useTheme } from '@shopify/restyle';
@@ -9,15 +9,23 @@ import useButtonHeight from '@/hooks/useButtonHeight';
 type ButtonProps = {
 	icon: keyof typeof Ionicons.glyphMap;
 	// icon: IconProps<ComponentProps<typeof Ionicons>['name']>;
+	variant: 'primary' | 'form';
 	onPress?: () => void;
+	disabled?: boolean;
 };
 
-const SquareButton = ({ icon, onPress, ...rest }: ButtonProps) => {
+const SquareButton = ({
+	variant = 'primary',
+	disabled,
+	icon,
+	onPress,
+	...rest
+}: ButtonProps) => {
 	const { colors } = useTheme<Theme>();
 	const { size, iconSize } = useButtonHeight();
 
 	return (
-		<TouchableOpacity onPress={onPress}>
+		<Pressable onPress={onPress}>
 			<Box
 				padding='s'
 				borderRadius='m'
@@ -25,18 +33,20 @@ const SquareButton = ({ icon, onPress, ...rest }: ButtonProps) => {
 				height={size}
 				flexDirection='row'
 				borderWidth={2}
-				borderColor='border'
+				borderColor={disabled ? 'textInputBorder' : 'border'}
 				alignItems='center'
 				justifyContent='center'
 			>
 				<Ionicons
 					name={icon}
 					size={iconSize}
-					color={colors.textSecondary}
+					color={
+						disabled ? colors.textInputBorder : colors.textSecondary
+					}
 					{...rest}
 				/>
 			</Box>
-		</TouchableOpacity>
+		</Pressable>
 	);
 };
 

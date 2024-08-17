@@ -24,10 +24,10 @@ export default function Home() {
 						onPress={() => null}
 					/>
 					<Box marginHorizontal='m'>
-						<SquareButton icon='link' />
+						<SquareButton variant='primary' icon='link' />
 					</Box>
 					<Box>
-						<SquareButton icon='add' />
+						<SquareButton variant='primary' icon='add' />
 					</Box>
 				</Box>
 			</ScrollView>
