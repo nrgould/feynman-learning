@@ -62,14 +62,42 @@ describe('ThemedButton Component', () => {
 		expect(buttonBox.props.style).toEqual(
 			expect.arrayContaining([
 				expect.objectContaining({
-					backgroundColor: theme.colors.buttonSecondary,
+					backgroundColor: theme.colors.secondary,
 				}),
 			])
 		);
 		expect(buttonText.props.style).toEqual(
 			expect.arrayContaining([
 				expect.objectContaining({
-					color: theme.colors.buttonTextSecondary,
+					color: theme.colors.buttonText,
+				}),
+			])
+		);
+	});
+	it('renders the tertiary variant correctly', () => {
+		const { getByText, getByTestId } = renderWithTheme(
+			<ThemedButton
+				title='Tertiary Button'
+				onPress={mockOnPress}
+				variant='tertiary'
+			/>
+		);
+
+		const buttonText = getByText('Tertiary Button');
+		const buttonBox = getByTestId('button-box');
+
+		expect(buttonText).toBeTruthy();
+		expect(buttonBox.props.style).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					backgroundColor: theme.colors.buttonTertiary,
+				}),
+			])
+		);
+		expect(buttonText.props.style).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					color: theme.colors.buttonTextTertiary,
 				}),
 			])
 		);

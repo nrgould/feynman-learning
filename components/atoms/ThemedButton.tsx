@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, TouchableOpacity } from 'react-native';
+import { Pressable } from 'react-native';
 import Box from '../atoms/Box';
 import Text from '../atoms/Text';
 import useButtonHeight from '@/hooks/useButtonHeight';
@@ -22,7 +22,6 @@ const ThemedButton = ({ title, onPress, variant = 'primary' }: ButtonProps) => {
 	const springOptions = {
 		damping: 5,
 		stiffness: 200,
-		// mass: 1,
 	};
 
 	const animatedStyle = useAnimatedStyle(() => {
@@ -44,12 +43,12 @@ const ThemedButton = ({ title, onPress, variant = 'primary' }: ButtonProps) => {
 			? 'primary'
 			: variant === 'secondary'
 			? 'secondary'
-			: 'buttonSecondary';
+			: 'buttonTertiary';
 
 	const color =
 		variant === 'primary' || variant === 'secondary'
 			? 'buttonText'
-			: 'buttonTextSecondary';
+			: 'buttonTextTertiary';
 
 	return (
 		<Pressable
@@ -62,7 +61,7 @@ const ThemedButton = ({ title, onPress, variant = 'primary' }: ButtonProps) => {
 				<Box
 					padding='s'
 					height={size}
-					borderRadius='l'
+					borderRadius='xxl'
 					flexDirection='row'
 					backgroundColor={backgroundColor}
 					testID='button-box'
