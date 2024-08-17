@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@/components/atoms/Box';
 import Text from '@/components/atoms/Text';
 import Card from '@/components/molecules/Card';
 import { ScrollView } from 'react-native';
 import ThemedButton from '@/components/atoms/ThemedButton';
 import SquareButton from '@/components/atoms/SquareButton';
+import ProgressBar from '@/components/atoms/ProgressBar';
 
 export default function Home() {
+	const [progress, setProgress] = useState(0);
+
+	const increaseProgress = () => {
+		setProgress((prev) => Math.min(prev + 0.1, 1));
+	};
+
+	const decreaseProgress = () => {
+		setProgress((prev) => Math.max(prev - 0.1, 0));
+	};
 	return (
 		<Box
 			flex={1}
@@ -34,17 +44,20 @@ export default function Home() {
 					<Box marginRight='s' flex={1}>
 						<ThemedButton
 							variant='secondary'
-							title='2nd button'
-							onPress={() => null}
+							title='Inc Prog'
+							onPress={increaseProgress}
 						/>
 					</Box>
 					<Box marginLeft='s' flex={1}>
 						<ThemedButton
 							variant='tertiary'
-							title=' 3rd button'
-							onPress={() => null}
+							title='Dec Prog'
+							onPress={decreaseProgress}
 						/>
 					</Box>
+				</Box>
+				<Box marginVertical='s'>
+					<ProgressBar progress={progress} duration={300} />
 				</Box>
 			</ScrollView>
 		</Box>

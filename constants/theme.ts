@@ -11,8 +11,8 @@ export const theme = createTheme({
 		textSecondary: '#5F6368',
 
 		buttonText: '#ffffff',
-		buttonTextSecondary: '#5F6368',
-		buttonSecondary: '#D9D9D9',
+		buttonTextTertiary: '#5F6368',
+		buttonTertiary: '#D9D9D9',
 
 		border: '#E0E0E0',
 
@@ -52,13 +52,14 @@ export const theme = createTheme({
 	textVariants: {
 		header: {
 			fontSize: 40,
-			fontWeight: '900',
+			fontWeight: 800,
 			color: 'textPrimary',
 		},
 		subheader: {
 			fontSize: 24,
-			fontWeight: '600',
+			fontWeight: '700',
 			color: 'textSecondary',
+			// fontFamily: 'SpaceMono'
 		},
 		body: {
 			fontSize: 16,
