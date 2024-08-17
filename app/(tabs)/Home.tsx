@@ -30,6 +30,22 @@ export default function Home() {
 						<SquareButton variant='primary' icon='add' />
 					</Box>
 				</Box>
+				<Box flexDirection='row' marginVertical='s'>
+					<Box marginRight='s' flex={1}>
+						<ThemedButton
+							variant='secondary'
+							title='2nd button'
+							onPress={() => null}
+						/>
+					</Box>
+					<Box marginLeft='s' flex={1}>
+						<ThemedButton
+							variant='tertiary'
+							title=' 3rd button'
+							onPress={() => null}
+						/>
+					</Box>
+				</Box>
 			</ScrollView>
 		</Box>
 	);
