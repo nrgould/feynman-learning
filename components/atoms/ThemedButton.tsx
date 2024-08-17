@@ -6,7 +6,7 @@ import Text from '../atoms/Text';
 type ButtonProps = {
 	title: string;
 	onPress: () => void;
-	variant?: 'primary' | 'secondary' | 'square';
+	variant?: 'primary' | 'secondary';
 };
 
 const ThemedButton = ({ title, onPress, variant = 'primary' }: ButtonProps) => {
