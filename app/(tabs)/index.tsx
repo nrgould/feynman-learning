@@ -18,14 +18,6 @@ export default function HomeScreen() {
 
 	const flashListRef = useRef<FlashList<any>>(null);
 
-	useEffect(() => {
-		if (flashListRef.current && messages.length > 0) {
-			flashListRef.current.scrollToEnd({
-				animated: true,
-			});
-		}
-	}, [messages.length]);
-
 	const openai = new OpenAI({
 		organization: process.env.EXPO_PUBLIC_ORG_KEY,
 		apiKey: process.env.EXPO_PUBLIC_API_KEY,
@@ -88,7 +80,6 @@ export default function HomeScreen() {
 						)}
 						keyExtractor={(item) => item.id}
 						estimatedItemSize={50}
-						// initialScrollIndex={messages.length - 1}
 						snapToInterval={64}
 						snapToAlignment='start'
 						decelerationRate='fast'
