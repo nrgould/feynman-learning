@@ -31,7 +31,7 @@ const ThemedButton = ({ title, onPress, variant = 'primary' }: ButtonProps) => {
 	});
 
 	const handlePressIn = () => {
-		scale.value = withSpring(0.95, springOptions);
+		scale.value = withSpring(0.97, springOptions);
 	};
 
 	const handlePressOut = () => {

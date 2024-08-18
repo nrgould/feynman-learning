@@ -1,6 +1,6 @@
 import { Dimensions } from 'react-native';
 
-export const BUTTON_HEIGHT_RATIO = 0.05;
+export const BUTTON_HEIGHT_RATIO = 0.042;
 export const ICON_HEIGHT_RATIO = 0.5;
 export const BAR_HEIGHT_RATIO = 0.4;
 

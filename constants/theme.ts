@@ -1,18 +1,23 @@
 // themes.ts
 import { createTheme } from '@shopify/restyle';
 
+const palette = {
+	blue: '#275DAD',
+	lightBlue: '#7AA3E1',
+};
+
 export const theme = createTheme({
 	colors: {
 		background: '#F5F5F5',
-		primary: '#275DAD',
-		secondary: '#6998DD',
+		primary: palette.blue,
+		secondary: palette.lightBlue,
 
 		textPrimary: '#202124',
 		textSecondary: '#5F6368',
 
 		buttonText: '#ffffff',
 		buttonTextTertiary: '#5F6368',
-		buttonTertiary: '#D9D9D9',
+		buttonTertiary: '#EBEBEB',
 
 		border: '#E0E0E0',
 
@@ -20,7 +25,7 @@ export const theme = createTheme({
 		danger: '#DE5050',
 		warning: '#F9AE3F',
 
-		textInputBackground: '#f0f0f0',
+		textInputBackground: '#EBEBEB',
 		textInputBorder: '#cccccc',
 		textInputText: '#333333',
 		placeholderText: '#5F6368',
@@ -78,11 +83,12 @@ export const theme = createTheme({
 	textInputVariants: {
 		default: {
 			backgroundColor: 'textInputBackground',
-			borderRadius: 'm',
-			padding: 'm',
+			borderRadius: 'xxl',
+			paddingHorizontal: 'm',
 			borderColor: 'textInputBorder',
 			borderWidth: 1,
 			color: 'textInputText',
+			// placeholderTextColor: 'placeholderText',
 		},
 		error: {
 			backgroundColor: 'errorBackground',

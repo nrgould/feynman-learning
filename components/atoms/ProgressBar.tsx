@@ -37,9 +37,9 @@ export default function ProgressBar({
 	});
 	return (
 		<Box
-			width={'100%'}
+			width='100%'
 			height={barSize}
-			backgroundColor='border'
+			backgroundColor='textInputBackground'
 			borderRadius='xl'
 			overflow='hidden'
 		>

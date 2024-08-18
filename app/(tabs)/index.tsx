@@ -11,6 +11,7 @@ import { useMessageStore } from '@/store/countReducer';
 import * as Haptics from 'expo-haptics';
 import * as Yup from 'yup';
 import { Formik, FormikHelpers } from 'formik';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface FormValues {
 	text: string;
@@ -19,7 +20,6 @@ interface FormValues {
 export default function HomeScreen() {
 	const messages = useMessageStore((state) => state.messages);
 	const addMessage = useMessageStore((state) => state.addMessage);
-	const [message, setMessage] = useState<string>('');
 	const [loading, setLoading] = useState<boolean>(false);
 
 	const flashListRef = useRef<FlashList<any>>(null);
@@ -54,7 +54,6 @@ export default function HomeScreen() {
 	};
 
 	const getChatGPTResponse = async (prompt: string) => {
-		//get chatgpt response
 		setLoading(true);
 		openai.chat.completions
 			.create({
@@ -62,13 +61,13 @@ export default function HomeScreen() {
 				messages: [{ role: 'user', content: prompt }],
 			})
 			.then((res) => {
-				setLoading(false);
 				addMessage({
 					id: res.id,
 					text: res.choices[0].message.content,
 					sender: 'assistant',
 					timestamp: moment().toISOString(),
 				});
+				setLoading(false);
 			});
 	};
 
@@ -84,44 +83,6 @@ export default function HomeScreen() {
 				sender: 'user',
 				timestamp: moment().toISOString(),
 			});
-		} else {
-			//message empty
-			Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
-		}
-	};
-
-	const handleSend = () => {
-		if (message) {
-			//prevents users from sending an empty message
-			Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-
-			//add message to flatlist
-			addMessage({
-				id: Math.random().toString(),
-				text: message,
-				sender: 'user',
-				timestamp: moment().toISOString(),
-			});
-
-			const prompt: string = message;
-			setMessage('');
-
-			//get chatgpt response
-			setLoading(true);
-			openai.chat.completions
-				.create({
-					model: 'gpt-4o-mini',
-					messages: [{ role: 'user', content: prompt }],
-				})
-				.then((res) => {
-					setLoading(false);
-					addMessage({
-						id: res.id,
-						text: res.choices[0].message.content,
-						sender: 'assistant',
-						timestamp: moment().toISOString(),
-					});
-				});
 		} else {
 			//message empty
 			Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
@@ -177,7 +138,6 @@ export default function HomeScreen() {
 								touched={touched}
 								isSubmitting={isSubmitting}
 								setFieldTouched={setFieldTouched}
-								handleSend={handleSend}
 								placeholder='Ask a question...'
 							/>
 						)}

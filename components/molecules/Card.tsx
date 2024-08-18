@@ -1,18 +1,48 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import Box from '../atoms/Box';
 import Text from '../atoms/Text';
-import Animated, { useSharedValue, withSpring } from 'react-native-reanimated';
-import { Pressable } from 'react-native';
+import Animated, {
+	useAnimatedStyle,
+	useSharedValue,
+	withSpring,
+} from 'react-native-reanimated';
+import { Dimensions, Pressable } from 'react-native';
 
 interface CardProps {
 	title?: string;
+	image?: string;
+	rest?: any[];
 }
 
-export default function Card() {
+export default function Card({ image, ...rest }: Readonly<CardProps>) {
 	const [open, setOpen] = useState<boolean>(false);
-	const height = useSharedValue(200);
+	const height = useSharedValue(Dimensions.get('window').height / 5);
+	const width = Dimensions.get('window').width / 2;
 
 	const viewRef = useRef(null);
+
+	const scale = useSharedValue(1);
+
+	const springOptions = {
+		damping: 5,
+		stiffness: 200,
+	};
+
+	const animatedStyle = useAnimatedStyle(() => {
+		return {
+			transform: [{ scale: scale.value }],
+		};
+	});
+
+	const handlePressIn = () => {
+		scale.value = withSpring(0.97, springOptions);
+	};
+
+	const handlePressOut = () => {
+		scale.value = withSpring(1, springOptions);
+	};
+
+	
 
 	const handlePress = () => {
 		if (!open) {
@@ -40,33 +70,35 @@ export default function Card() {
 	};
 
 	return (
-		<Pressable onPress={handlePress}>
-			<Box
-				ref={viewRef}
-				backgroundColor='textInputBackground'
-				borderColor='textInputBorder'
-				borderRadius='xxl'
-				borderWidth={1}
-				marginVertical='s'
-				overflow='hidden'
-			>
-				<Animated.View style={{ height }}>
-					<Box flexDirection='column' padding='m'>
+		<Pressable
+			onPress={handlePress}
+			onPressIn={handlePressIn}
+			onPressOut={handlePressOut}
+			{...rest}
+		>
+			<Animated.View style={[{ height }, animatedStyle]}>
+				<Box
+					ref={viewRef}
+					backgroundColor='textInputBackground'
+					borderColor='textInputBorder'
+					borderRadius='xxl'
+					marginRight='m'
+					overflow='hidden'
+				>
+					<Box flexDirection='column' padding='m' width={width}>
 						<Text variant='subheader' marginVertical='s'>
 							Card
 						</Text>
 						<Text variant='body' marginVertical='s'>
 							Lorem ipsum dolor, sit amet consectetur adipisicing
-							elit. Velit eum quidem molestias quis, veniam
-							consequuntur eveniet incidunt maxime excepturi
-							dolorum!
+							elit.
 						</Text>
 						<Text variant='caption' marginVertical='s'>
 							Caption
 						</Text>
 					</Box>
-				</Animated.View>
-			</Box>
+				</Box>
+			</Animated.View>
 		</Pressable>
 	);
 }
