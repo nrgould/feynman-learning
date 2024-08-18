@@ -7,7 +7,7 @@ import Animated, {
 	useSharedValue,
 	withSpring,
 } from 'react-native-reanimated';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 
 interface Apps {
 	id: number;
@@ -92,10 +92,21 @@ export default function ImageCard() {
 							Lorem ipsum dolor, sit amet consectetur adipisicing
 							elit.
 						</Text>
-						<Link href='/CourseDetails' />
-						<Text variant='caption' marginVertical='s'>
-							Caption
-						</Text>
+						<Link href='/(tabs)/courses/course/1'>
+							Go to course 1
+						</Link>
+						<Pressable
+							onPress={() =>
+								router.push({
+									pathname: '/(tabs)/courses/[id].tsx',
+									params: { id: 1 },
+								})
+							}
+						>
+							<Text variant='caption' marginVertical='s'>
+								Caption
+							</Text>
+						</Pressable>
 					</Box>
 				</Box>
 			</Animated.View>
