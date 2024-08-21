@@ -80,7 +80,7 @@ export default function ImageCard({
 							{subtitle}
 						</Text>
 						<Pressable
-							onPress={() => () => navigation.navigate('Details')}
+							onPress={() => navigation.navigate('Details')}
 						>
 							<Text variant='caption' marginVertical='s'>
 								Go to course
