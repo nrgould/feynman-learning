@@ -46,6 +46,7 @@ export const theme = createTheme({
 		l: 24,
 		xl: 32,
 		xxl: 64,
+		notch: 56,
 	},
 	borderRadii: {
 		s: 4,
@@ -63,8 +64,7 @@ export const theme = createTheme({
 		subheader: {
 			fontSize: 24,
 			fontWeight: '700',
-			color: 'textSecondary',
-			// fontFamily: 'SpaceMono'
+			color: 'textPrimary',
 		},
 		body: {
 			fontSize: 16,
@@ -88,7 +88,6 @@ export const theme = createTheme({
 			borderColor: 'textInputBorder',
 			borderWidth: 1,
 			color: 'textInputText',
-			// placeholderTextColor: 'placeholderText',
 		},
 		error: {
 			backgroundColor: 'errorBackground',

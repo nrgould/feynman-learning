@@ -2,7 +2,7 @@ import React from 'react';
 import { Pressable } from 'react-native';
 import Box from '../atoms/Box';
 import Text from '../atoms/Text';
-import useButtonHeight from '@/hooks/useButtonHeight';
+import useItemHeight from '@/hooks/useItemHeight';
 import Animated, {
 	useAnimatedStyle,
 	useSharedValue,
@@ -16,7 +16,7 @@ type ButtonProps = {
 };
 
 const ThemedButton = ({ title, onPress, variant = 'primary' }: ButtonProps) => {
-	const { size } = useButtonHeight();
+	const { size } = useItemHeight();
 	const scale = useSharedValue(1);
 
 	const springOptions = {

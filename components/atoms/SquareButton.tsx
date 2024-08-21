@@ -4,7 +4,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import Box from './Box';
 import { useTheme } from '@shopify/restyle';
 import { Theme } from '@/constants/theme';
-import useButtonHeight from '@/hooks/useButtonHeight';
+import useItemHeight from '@/hooks/useItemHeight';
 import Animated, {
 	useAnimatedStyle,
 	useSharedValue,
@@ -13,7 +13,6 @@ import Animated, {
 
 type ButtonProps = {
 	icon: keyof typeof Ionicons.glyphMap;
-	// icon: IconProps<ComponentProps<typeof Ionicons>['name']>;
 	variant: 'primary';
 	onPress?: () => void;
 	disabled?: boolean;
@@ -27,7 +26,7 @@ const SquareButton = ({
 	...rest
 }: ButtonProps) => {
 	const { colors } = useTheme<Theme>();
-	const { size, iconSize } = useButtonHeight();
+	const { size, iconSize } = useItemHeight();
 
 	const scale = useSharedValue(1);
 

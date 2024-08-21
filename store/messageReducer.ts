@@ -1,3 +1,4 @@
+import conversation from '@/constants/dummy-data';
 import { Message } from '@/types/Messages';
 import { create } from 'zustand';
 
@@ -24,26 +25,7 @@ const msgReducer = (state: State, action: Action) => {
 };
 
 export const useMessageStore = create<State & Actions>((set) => ({
-	messages: [
-		{
-			id: '1',
-			text: 'Hello!',
-			sender: 'user',
-			timestamp: '2024-08-14T12:00:00Z',
-		},
-		{
-			id: '2',
-			text: 'Hi there! How can I help you today?',
-			sender: 'user',
-			timestamp: '2024-08-14T12:00:00Z',
-		},
-		{
-			id: '3',
-			text: 'I need assistance with my order.',
-			sender: 'assistant',
-			timestamp: '2024-08-14T12:00:45Z',
-		},
-	],
+	messages: conversation,
 	addMessage: (msg: Message) =>
 		set((state) => msgReducer(state, { type: 'addMessage', msg })),
 }));

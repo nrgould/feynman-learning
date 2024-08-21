@@ -1,4 +1,4 @@
-import { useMessageStore } from '@/store/countReducer';
+import { useMessageStore } from '@/store/messageReducer';
 import { Message } from '@/types/Messages';
 import moment from 'moment';
 

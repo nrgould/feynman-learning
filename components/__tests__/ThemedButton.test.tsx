@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { ThemeProvider } from '@shopify/restyle';
-import ThemedButton from '../atoms/ThemedButton'; // Adjust the import path as necessary
-import { theme } from '../../constants/theme'; // Ensure this points to your theme file
+import ThemedButton from '../atoms/ThemedButton';
+import { theme } from '../../constants/theme';
 import { Dimensions } from 'react-native';
-import { BUTTON_HEIGHT_RATIO } from '@/hooks/useButtonHeight';
+import { BUTTON_HEIGHT_RATIO } from '@/hooks/useItemHeight';
 
 describe('ThemedButton Component', () => {
 	const mockOnPress = jest.fn();

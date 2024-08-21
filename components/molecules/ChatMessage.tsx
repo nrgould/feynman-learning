@@ -7,7 +7,7 @@ import Animated, {
 	withDelay,
 	withSpring,
 } from 'react-native-reanimated';
-import { useMessageStore } from '@/store/countReducer';
+import { useMessageStore } from '@/store/messageReducer';
 import Text from '../atoms/Text';
 
 type ChatMessageProps = {
@@ -18,7 +18,7 @@ const CHAT_SPACING_SPACED = 12;
 const CHAT_SPACING_GROUPED = 2;
 const CHAT_SPACING_LAST_MESSAGE = 32;
 
-const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
+function ChatMessage({ message }: ChatMessageProps) {
 	const messages = useMessageStore((state) => state.messages);
 	const isUser = message.sender === 'user';
 	const isSpaced = useChatSpacing(message);
@@ -71,6 +71,6 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
 			</Box>
 		</Animated.View>
 	);
-};
+}
 
 export default ChatMessage;

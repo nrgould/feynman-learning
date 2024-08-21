@@ -1,4 +1,3 @@
-import { ThemedText } from '@/components/atoms/ThemedText';
 import Box from '../../components/atoms/Box';
 import React, { useRef, useState } from 'react';
 import OpenAI from 'openai';
@@ -7,11 +6,11 @@ import ChatMessage from '@/components/molecules/ChatMessage';
 import { FlashList } from '@shopify/flash-list';
 import { KeyboardAvoidingView, Platform, StyleSheet } from 'react-native';
 import moment from 'moment';
-import { useMessageStore } from '@/store/countReducer';
 import * as Haptics from 'expo-haptics';
 import * as Yup from 'yup';
 import { Formik, FormikHelpers } from 'formik';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useMessageStore } from '@/store/messageReducer';
+import Text from '@/components/atoms/Text';
 
 interface FormValues {
 	text: string;
@@ -92,7 +91,7 @@ export default function HomeScreen() {
 	return (
 		<Box backgroundColor='background' flex={1}>
 			<Box paddingTop='xxl' paddingHorizontal='m'>
-				<ThemedText type='header'>Chat</ThemedText>
+				<Text variant='header'>Chat</Text>
 			</Box>
 			<KeyboardAvoidingView
 				style={styles.container}
@@ -143,7 +142,6 @@ export default function HomeScreen() {
 						)}
 					</Formik>
 				</Box>
-				{/* <Box paddingHorizontal='m'></Box> */}
 			</KeyboardAvoidingView>
 		</Box>
 	);

@@ -1,49 +1,28 @@
 import React, { useRef } from 'react';
 import Box from '../atoms/Box';
 import Text from '../atoms/Text';
-import { Image, Pressable } from 'react-native';
+import { Dimensions, Pressable } from 'react-native';
 import Animated, {
 	useAnimatedStyle,
 	useSharedValue,
 	withSpring,
 } from 'react-native-reanimated';
-import { Link, router } from 'expo-router';
+import { router } from 'expo-router';
+import { Course } from '@/app/(tabs)/courses';
+import { SharedElement } from 'react-navigation-shared-element';
+import { useNavigation } from '@react-navigation/native';
 
-interface Apps {
-	id: number;
-	title: string;
-	subtitle: string;
-	source: string;
-	// source: ImageSourcePropType;
-	content: string;
-}
+interface Props extends Course {}
 
-const apps: Apps[] = [
-	{
-		id: 0,
-		title: 'Namaste',
-		subtitle: 'Best Yoga Apps for the Summer',
-		source: '../../assets/images/R6II9151.jpg',
-		content: '',
-	},
-	{
-		id: 1,
-		title: 'Mindful Meditation',
-		subtitle: 'Top Apps for Daily Meditation',
-		source: '../../assets/images/R6II1763-ROCK.jpg',
-		content: '',
-	},
-	{
-		id: 2,
-		title: 'Healthy Eats',
-		subtitle: 'Your Guide to Eating Clean',
-		source: '../../assets/images/R6II7452-Edit.jpg',
-		content: '',
-	},
-];
-
-export default function ImageCard() {
+export default function ImageCard({
+	title,
+	subtitle,
+	source,
+	id,
+}: Readonly<Props>) {
 	const scale = useSharedValue(1);
+	const height = Dimensions.get('window').height / 4;
+	const navigation = useNavigation<any>();
 
 	const viewRef = useRef(null);
 
@@ -66,7 +45,12 @@ export default function ImageCard() {
 	};
 	return (
 		<Pressable
-			// onPress={handlePress}
+			onPress={() =>
+				router.push({
+					pathname: '/(tabs)/courses/[id].tsx',
+					params: { id, title },
+				})
+			}
 			onPressIn={handlePressIn}
 			onPressOut={handlePressOut}
 		>
@@ -76,35 +60,30 @@ export default function ImageCard() {
 					backgroundColor='textInputBackground'
 					borderColor='textInputBorder'
 					borderRadius='xxl'
-					margin='m'
+					marginHorizontal='m'
+					marginVertical='s'
 					overflow='hidden'
 				>
-					{/* <Image
-						source={require(apps[0].source)} // You can pass the source dynamically
-						style={{ width: '100%', height: 150 }}
-						resizeMode='cover'
-					/> */}
+					<SharedElement id={id}>
+						<Animated.Image
+							source={source}
+							style={{ width: '100%', height: height }}
+							resizeMode='cover'
+							sharedTransitionTag='test'
+						/>
+					</SharedElement>
 					<Box flexDirection='column' padding='m'>
 						<Text variant='subheader' marginVertical='s'>
-							Card
+							{title}
 						</Text>
 						<Text variant='body' marginVertical='s'>
-							Lorem ipsum dolor, sit amet consectetur adipisicing
-							elit.
+							{subtitle}
 						</Text>
-						<Link href='/(tabs)/courses/course/1'>
-							Go to course 1
-						</Link>
 						<Pressable
-							onPress={() =>
-								router.push({
-									pathname: '/(tabs)/courses/[id].tsx',
-									params: { id: 1 },
-								})
-							}
+							onPress={() => () => navigation.navigate('Details')}
 						>
 							<Text variant='caption' marginVertical='s'>
-								Caption
+								Go to course
 							</Text>
 						</Pressable>
 					</Box>

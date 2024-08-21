@@ -2,26 +2,35 @@ import React from 'react';
 import Box from '../atoms/Box';
 import ThemedTextInput from '../atoms/ThemedTextInput';
 import SquareButton from '../atoms/SquareButton';
-import { FormikFormProps } from 'formik';
+import {
+	FormikErrors,
+	FormikFormProps,
+	FormikHandlers,
+	FormikTouched,
+	FormikValues,
+} from 'formik';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
 	runOnJS,
-	useAnimatedStyle,
 	useSharedValue,
 	withSpring,
 } from 'react-native-reanimated';
 import { Keyboard } from 'react-native';
 
 interface Props extends FormikFormProps {
-	handleChange: any;
+	handleChange: FormikHandlers['handleChange'];
 	isValid: boolean;
-	values: any;
+	values: FormikValues;
 	dirty: boolean;
-	handleSubmit: any;
-	touched: any;
+	handleSubmit: FormikHandlers['handleSubmit'];
+	touched: FormikTouched<FormikValues>;
 	isSubmitting: boolean;
-	errors: any;
-	setFieldTouched: any;
+	errors: FormikErrors<FormikValues>;
+	setFieldTouched: (
+		field: string,
+		isTouched?: boolean,
+		shouldValidate?: boolean
+	) => void;
 	placeholder: string;
 }
 
@@ -32,8 +41,6 @@ export default function ChatForm({
 	isValid,
 	values,
 	handleSubmit,
-	touched,
-	errors,
 	dirty,
 	isSubmitting,
 }: Readonly<Props>) {
@@ -45,21 +52,23 @@ export default function ChatForm({
 		}
 	};
 
+	// Dismiss the keyboard if the textInput is swiped down on
 	const onHandlerStateChange = (event: any) => {
 		if (event.nativeEvent.translationY > 30) {
-			runOnJS(Keyboard.dismiss)(); // Dismiss the keyboard
+			runOnJS(Keyboard.dismiss)();
 		}
 		translateY.value = withSpring(0, {
 			damping: 10,
 			stiffness: 100,
 			overshootClamping: true,
-		}); // Reset position
+		});
 	};
 
 	return (
 		<PanGestureHandler
 			onGestureEvent={onGestureEvent}
 			onEnded={onHandlerStateChange}
+			testID='chatform-pan-gesture-handler'
 		>
 			<Animated.View>
 				<Box flexDirection='row' marginVertical='s'>
@@ -71,7 +80,6 @@ export default function ChatForm({
 							onBlur={() => setFieldTouched('text')}
 							placeholder={placeholder}
 							returnKeyType='done'
-							// error={errors.text && touched.text ? errors.text : null}
 						/>
 					</Box>
 					<Box width='auto'>

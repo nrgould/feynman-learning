@@ -11,56 +11,33 @@ import Animated, {
 	useAnimatedScrollHandler,
 	useSharedValue,
 } from 'react-native-reanimated';
+import { useCourseStore } from '@/store/courseReducer';
 
 export interface Course {
-	id: number;
+	id: string;
 	title: string;
 	subtitle: string;
 	source: number;
 	content: string;
 }
 
-const apps: Course[] = [
-	{
-		id: 0,
-		title: 'Namaste',
-		subtitle: 'Best Yoga Apps for the Summer',
-		source: require('../../../assets/images/R6II9151.jpg'),
-		content: '',
-	},
-	{
-		id: 1,
-		title: 'Mindful Meditation',
-		subtitle: 'Top Apps for Daily Meditation',
-		source: require('../../../assets/images/R6II1763-ROCK.jpg'),
-		content: '',
-	},
-	{
-		id: 2,
-		title: 'Healthy Eats',
-		subtitle: 'Your Guide to Eating Clean',
-		source: require('../../../assets/images/R6II7452-Edit.jpg'),
-		content: '',
-	},
-];
-
 export default function CoursesList() {
 	const [isReady, setIsReady] = useState(false);
+	const courses = useCourseStore((state) => state.courses);
 	const { colors } = useTheme<Theme>();
-
 	const scrollY = useSharedValue(0);
 
 	useEffect(() => {
-		async function loadAssets() {
-			const imageAssets = apps.map((app) =>
-				Asset.fromModule(app.source).downloadAsync()
-			);
-			await Promise.all(imageAssets);
-			setIsReady(true);
-		}
-
 		loadAssets();
 	}, []);
+
+	async function loadAssets() {
+		const imageAssets = courses.map((course) =>
+			Asset.fromModule(course.source).downloadAsync()
+		);
+		await Promise.all(imageAssets);
+		setIsReady(true);
+	}
 
 	const scrollHandler = useAnimatedScrollHandler((event) => {
 		scrollY.value = event.contentOffset.y;
@@ -85,14 +62,14 @@ export default function CoursesList() {
 					<Text margin='m' variant='header'>
 						Courses
 					</Text>
-					{apps.map((app) => (
+					{courses.map((courses) => (
 						<ImageCard
-							key={app.id}
-							source={app.source}
-							title={app.title}
-							subtitle={app.subtitle}
-							id={app.id}
-							content={app.content}
+							key={courses.id}
+							source={courses.source}
+							title={courses.title}
+							subtitle={courses.subtitle}
+							id={courses.id}
+							content={courses.content}
 						/>
 					))}
 				</Animated.ScrollView>

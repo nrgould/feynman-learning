@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import Box from './Box';
+import Box from '../atoms/Box';
 import Animated, {
 	Easing,
 	useAnimatedStyle,
 	useSharedValue,
 	withTiming,
 } from 'react-native-reanimated';
-import useButtonHeight from '@/hooks/useButtonHeight';
+import useItemHeight from '@/hooks/useItemHeight';
 import { useTheme } from '@shopify/restyle';
 import { Theme } from '@/constants/theme';
 
@@ -20,7 +20,7 @@ export default function ProgressBar({
 	duration = 1000,
 }: Readonly<ProgressProps>) {
 	const progressValue = useSharedValue(0);
-	const { barSize } = useButtonHeight();
+	const { barSize } = useItemHeight();
 	const { colors, borderRadii } = useTheme<Theme>();
 
 	useEffect(() => {

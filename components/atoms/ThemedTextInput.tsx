@@ -11,7 +11,7 @@ import {
 } from '@shopify/restyle';
 import { Theme } from '@/constants/theme';
 import Box from './Box';
-import useButtonHeight from '@/hooks/useButtonHeight';
+import useItemHeight from '@/hooks/useItemHeight';
 
 type CustomTextInputProps = RNTextInputProps &
 	VariantProps<Theme, 'textInputVariants'> & {
@@ -28,7 +28,7 @@ const ThemedTextInput = ({
 	variant = 'default',
 	...props
 }: CustomTextInputProps) => {
-	const { size } = useButtonHeight();
+	const { size } = useItemHeight();
 	const { colors } = useTheme<Theme>();
 	return (
 		<Box marginRight='s'>

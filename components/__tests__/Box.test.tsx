@@ -25,7 +25,6 @@ describe('Box Component', () => {
 		);
 
 		const box = getByTestId('box-component');
-		// Since `@shopify/restyle` applies styles dynamically, you might want to test the presence of certain styles or properties
 		expect(box.props.style).toEqual(
 			expect.arrayContaining([
 				expect.objectContaining({

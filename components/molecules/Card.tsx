@@ -7,7 +7,6 @@ import Animated, {
 	withSpring,
 } from 'react-native-reanimated';
 import { Dimensions, Pressable } from 'react-native';
-
 interface CardProps {
 	title?: string;
 	image?: string;
@@ -42,8 +41,6 @@ export default function Card({ image, ...rest }: Readonly<CardProps>) {
 		scale.value = withSpring(1, springOptions);
 	};
 
-	
-
 	const handlePress = () => {
 		if (!open) {
 			height.value = withSpring(height.value + 100, {
@@ -76,15 +73,15 @@ export default function Card({ image, ...rest }: Readonly<CardProps>) {
 			onPressOut={handlePressOut}
 			{...rest}
 		>
-			<Animated.View style={[{ height }, animatedStyle]}>
-				<Box
-					ref={viewRef}
-					backgroundColor='textInputBackground'
-					borderColor='textInputBorder'
-					borderRadius='xxl'
-					marginRight='m'
-					overflow='hidden'
-				>
+			<Box
+				ref={viewRef}
+				backgroundColor='textInputBackground'
+				borderColor='textInputBorder'
+				borderRadius='xxl'
+				marginRight='m'
+				overflow='hidden'
+			>
+				<Animated.View style={[{ height }, animatedStyle]}>
 					<Box flexDirection='column' padding='m' width={width}>
 						<Text variant='subheader' marginVertical='s'>
 							Card
@@ -97,8 +94,8 @@ export default function Card({ image, ...rest }: Readonly<CardProps>) {
 							Caption
 						</Text>
 					</Box>
-				</Box>
-			</Animated.View>
+				</Animated.View>
+			</Box>
 		</Pressable>
 	);
 }
