@@ -1,44 +1,80 @@
 import React from 'react';
-import { Dimensions, TouchableOpacity } from 'react-native';
+import { Pressable } from 'react-native';
 import Box from '../atoms/Box';
 import Text from '../atoms/Text';
+import useItemHeight from '@/hooks/useItemHeight';
+import Animated, {
+	useAnimatedStyle,
+	useSharedValue,
+	withSpring,
+} from 'react-native-reanimated';
 
 type ButtonProps = {
 	title: string;
 	onPress: () => void;
-	variant?: 'primary' | 'secondary' | 'square';
+	variant?: 'primary' | 'secondary' | 'tertiary';
 };
 
 const ThemedButton = ({ title, onPress, variant = 'primary' }: ButtonProps) => {
-	const screenHeight = Dimensions.get('window').height;
-	const size = screenHeight * 0.05;
+	const { size } = useItemHeight();
+	const scale = useSharedValue(1);
+
+	const springOptions = {
+		damping: 5,
+		stiffness: 200,
+	};
+
+	const animatedStyle = useAnimatedStyle(() => {
+		return {
+			transform: [{ scale: scale.value }],
+		};
+	});
+
+	const handlePressIn = () => {
+		scale.value = withSpring(0.97, springOptions);
+	};
+
+	const handlePressOut = () => {
+		scale.value = withSpring(1, springOptions);
+	};
+
+	const backgroundColor =
+		variant === 'primary'
+			? 'primary'
+			: variant === 'secondary'
+			? 'secondary'
+			: 'buttonTertiary';
+
+	const color =
+		variant === 'primary' || variant === 'secondary'
+			? 'buttonText'
+			: 'buttonTextTertiary';
 
 	return (
-		<TouchableOpacity onPress={onPress} style={{ flex: 1 }}>
-			<Box
-				padding='s'
-				height={size}
-				borderRadius='m'
-				flexDirection='row'
-				backgroundColor={
-					variant === 'primary' ? 'primary' : 'buttonSecondary'
-				}
-				borderColor={'border'}
-				alignItems='center'
-				justifyContent='center'
-			>
-				<Text
-					color={
-						variant === 'primary'
-							? 'buttonText'
-							: 'buttonTextSecondary'
-					}
-					variant='button'
+		<Pressable
+			onPress={onPress}
+			style={{ flex: 1 }}
+			onPressIn={handlePressIn}
+			onPressOut={handlePressOut}
+		>
+			<Animated.View style={animatedStyle}>
+				<Box
+					padding='s'
+					height={size}
+					borderRadius='xxl'
+					flexDirection='row'
+					backgroundColor={backgroundColor}
+					testID='button-box'
+					borderColor={'border'}
+					alignItems='center'
+					justifyContent='center'
 				>
-					{title}
-				</Text>
-			</Box>
-		</TouchableOpacity>
+					<Text color={color} variant='button'>
+						{title}
+					</Text>
+				</Box>
+			</Animated.View>
+		</Pressable>
 	);
 };
 

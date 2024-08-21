@@ -6,16 +6,14 @@ interface ThemeState {
 	toggleTheme: () => void;
 }
 
-// Define the Zustand store
 const themeStore = createStore<ThemeState>((set) => ({
-	theme: 'light', // Default theme
+	theme: 'light',
 	toggleTheme: () =>
 		set((state) => ({
 			theme: state.theme === 'light' ? 'dark' : 'light',
 		})),
 }));
 
-// Create a hook to use the store
 const useThemeStore = () => useStore(themeStore);
 
 export default useThemeStore;

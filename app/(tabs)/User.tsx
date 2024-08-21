@@ -17,11 +17,22 @@ export default function User() {
 			paddingHorizontal='m'
 		>
 			<Text variant='header'>User</Text>
-			<Switch
-				value={theme === 'dark'}
-				onValueChange={toggleTheme}
-				trackColor={{ false: colors.primary, true: colors.secondary }}
-			/>
+			<Box
+				marginTop='xl'
+				flex={1}
+				justifyContent='center'
+				alignItems='center'
+			>
+				<Text variant='subheader'>{theme}</Text>
+				<Switch
+					value={theme === 'dark'}
+					onValueChange={toggleTheme}
+					trackColor={{
+						false: colors.primary,
+						true: colors.secondary,
+					}}
+				/>
+			</Box>
 		</Box>
 	);
 }

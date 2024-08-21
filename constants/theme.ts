@@ -1,58 +1,70 @@
 // themes.ts
 import { createTheme } from '@shopify/restyle';
 
-const theme = createTheme({
+const palette = {
+	blue: '#275DAD',
+	lightBlue: '#7AA3E1',
+};
+
+export const theme = createTheme({
 	colors: {
-		background: '#FFFFFF',
-		primary: '#275DAD',
-		secondary: '#22BF90',
+		background: '#F5F5F5',
+		primary: palette.blue,
+		secondary: palette.lightBlue,
 
 		textPrimary: '#202124',
 		textSecondary: '#5F6368',
+
 		buttonText: '#ffffff',
-		buttonTextSecondary: '#5F6368',
-		buttonSecondary: '#D9D9D9',
+		buttonTextTertiary: '#5F6368',
+		buttonTertiary: '#EBEBEB',
 
 		border: '#E0E0E0',
-		success: '#34A853',
-		danger: '#EA4335',
-		warning: '#FBBC05',
 
-		textInputBackground: '#f0f0f0',
+		success: '#37BC64',
+		danger: '#DE5050',
+		warning: '#F9AE3F',
+
+		textInputBackground: '#EBEBEB',
 		textInputBorder: '#cccccc',
 		textInputText: '#333333',
 		placeholderText: '#5F6368',
 
 		errorBackground: '#ffdddd',
 		errorBorder: '#ff3333',
-		
+
+		messageUser: '#ffffff',
+		messageBot: '#202124',
 		messageBgUser: '#22BF90',
-		messageBgBot: '#D6D6D6',
+		messageBgBot: '#D9D9D9',
 	},
 	spacing: {
+		xxs: 2,
 		xs: 4,
 		s: 8,
 		m: 16,
 		l: 24,
 		xl: 32,
 		xxl: 64,
+		notch: 56,
 	},
 	borderRadii: {
 		s: 4,
 		m: 8,
 		l: 12,
 		xl: 16,
+		xxl: 24,
 	},
 	textVariants: {
 		header: {
 			fontSize: 40,
-			fontWeight: '900',
+			fontWeight: 800,
 			color: 'textPrimary',
 		},
 		subheader: {
 			fontSize: 24,
-			fontWeight: '600',
-			color: 'textSecondary',
+			fontWeight: '700',
+			color: 'textPrimary',
 		},
 		body: {
 			fontSize: 16,
@@ -71,8 +83,8 @@ const theme = createTheme({
 	textInputVariants: {
 		default: {
 			backgroundColor: 'textInputBackground',
-			borderRadius: 'm',
-			padding: 'm',
+			borderRadius: 'xxl',
+			paddingHorizontal: 'm',
 			borderColor: 'textInputBorder',
 			borderWidth: 1,
 			color: 'textInputText',
@@ -105,8 +117,6 @@ export const DarkTheme = {
 		textInputBackground: '#202124',
 		textInputBorder: '#333333',
 		textInputText: '#cccccc',
-		messageBgUser: '#008080',
-		messageBgBot: '#202124',
 	},
 };
 
